@@ -27,5 +27,8 @@ dist-ssr
 # config files
 ./config
 
+# firebase files
+.firebase
+
 # actions
 ./.github
