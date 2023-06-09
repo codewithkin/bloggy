@@ -4,13 +4,20 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import './index.css'
 import Root from './components/Root.tsx'
 import NotFound from './error components/NotFound.tsx'
+import Home from './Pages/Home.tsx'
 
   const router = createBrowserRouter([
     {
       path: "/",
       element: <Root />,
-      errorElement: <NotFound />
-    }
+      errorElement: <NotFound />,
+      children: [
+        {
+          path: "home",
+          element: <Home />
+        }
+      ]
+    },
   ])
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

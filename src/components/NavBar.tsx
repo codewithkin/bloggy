@@ -1,4 +1,4 @@
-import { Divider, Grid } from "@chakra-ui/react";
+import { Box, Button, Divider, Grid } from "@chakra-ui/react";
 import { FunctionComponent } from "react";
 import {AiOutlineHome, AiOutlineUser} from "react-icons/ai";
 import { BiBookReader, BiLogOut } from "react-icons/bi";
@@ -13,17 +13,27 @@ const NavBar: FunctionComponent<NavBarProps> = () => {
     return ( 
         <Grid 
         backgroundColor="gray.400"
-        w={{ base: "100vw", lg: "5vw" }}
+        w={{ base: `100vw`, lg: "6vw" }}
         justifyContent="center"
         alignItems="center"
-        gridTemplateColumns={{ lg: "1" }}
-        h="100vh">
-            <IconLink color="" icon={AiOutlineHome} linkText="Home" />
-            <IconLink color="" icon={BiBookReader} linkText="Articles" />
-            <IconLink color="" icon={BsFillBookmarkStarFill} linkText="Home" />
-            <IconLink color="" icon={AiOutlineUser} linkText="Home" />
+        h="100vh"
+        shadow={{ base: "1rem" }}
+        >
+            <IconLink dest="/home" color="" icon={AiOutlineHome} linkText="Home" />
+            <IconLink dest="/posts/all" color="" icon={BiBookReader} linkText="Articles" />
+            <IconLink dest="/posts/favorites" color="" icon={BsFillBookmarkStarFill} linkText="Favorites" />
+            <IconLink dest="/account" color="" icon={AiOutlineUser} linkText="Account" />
             <Divider />
-            <IconLink icon={BiLogOut} linkText="Logout" color="red.600"/>
+            <Box>
+                { window.innerWidth < 400 ?
+                <Button
+                colorScheme="red"
+                variant="link"
+                >Logout</Button> :
+                <BiLogOut fill="red" size={40}
+                />
+                }
+            </Box>
         </Grid>
      );
 }

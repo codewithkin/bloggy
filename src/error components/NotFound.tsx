@@ -11,8 +11,8 @@ const NotFound: FunctionComponent<NotFoundProps> = () => {
 
     return ( 
         <>
-            <Heading>Page Not found</Heading>
-            <Text>{error.statusText || error.message}</Text>
+            <Heading>{error.statusText }</Heading>
+            <Text>{error.message}</Text>
         </>
      );
 }

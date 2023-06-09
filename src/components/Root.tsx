@@ -8,10 +8,12 @@ interface RootProps {
 
 const Root: FunctionComponent<RootProps> = () => {
     return ( 
-        <>
+        <section className="grid md:flex">
             <NavBar />
-            <Outlet />
-        </>
+            <section>
+                <Outlet />
+            </section>
+        </section>
      );
 }
  
