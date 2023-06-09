@@ -13,7 +13,8 @@ const Root: FunctionComponent<RootProps> = () => {
                 <NavBar />
             </section>
             <section className="md:w-full md:h-[100vh]">
-                <Outlet />
+                <Outlet 
+                />
             </section>
         </section>
      );
