@@ -1,5 +1,5 @@
 import { GridItem, Link, Icon, Flex, Text } from "@chakra-ui/react";
-import { FunctionComponent } from "react";
+import { Dispatch, FunctionComponent, SetStateAction } from "react";
 import { IconType } from "react-icons";
 import { Link as RLink } from "react-router-dom";
 
@@ -7,15 +7,18 @@ interface IconLinkProps {
     icon: IconType,
     linkText: string,
     color: string | undefined,
-    dest: string
+    dest: string,
+    setDisplay: Dispatch<SetStateAction<boolean>>
 }
  
-const IconLink: FunctionComponent<IconLinkProps> = ({icon,color,linkText,dest}) => {
+const IconLink: FunctionComponent<IconLinkProps> = ({icon,color,linkText,dest, setDisplay}) => {
     return ( 
         <GridItem 
         ml={{ lg: "9px" }}
-        p="1rem"
-        fontWeight="bold">
+        py="1rem"
+        fontWeight="bold"
+        onClick={() => setDisplay(false)}
+        >
             <Link as={RLink} to={dest}>
                 <Flex 
                 gap="5px">

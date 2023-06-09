@@ -5,6 +5,7 @@ import './index.css'
 import Root from './components/Root.tsx'
 import NotFound from './error components/NotFound.tsx'
 import Home from './Pages/Home.tsx'
+import Auth from './components/Auth.tsx'
 
   const router = createBrowserRouter([
     {
@@ -15,6 +16,10 @@ import Home from './Pages/Home.tsx'
         {
           path: "home",
           element: <Home />
+        },
+        {
+          path: "login",
+          element: <Auth />
         }
       ]
     },
