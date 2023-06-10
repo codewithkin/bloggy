@@ -4,10 +4,16 @@ import { getDocs } from "firebase/firestore";
 import { collectionRef } from "../config/firebase";
 import BlogPreview from "./BlogPreview";
 
+type poster = {
+    name: string,
+    email: string,
+    photoUrl: string
+}
+
 export interface blog {
     Title: string,
     Topics: Array<String>,
-    Author: string,
+    Poster: poster,
     Description: string,
     createdAT: Date,
     Comments: Array<object>,
@@ -39,8 +45,9 @@ const RecentPosts: FunctionComponent<RecentPostsProps> = () => {
              className="font-bold text-2xl"
             >Recent blog posts</h2>
             <Flex
-            className="grid md:Flex flex-wrap"
+            className="grid md:flex"
             gap="2rem"
+            px="2rem"
             >
                 {
                     docs ?

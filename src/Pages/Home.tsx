@@ -14,7 +14,8 @@ const Home: FunctionComponent<HomeProps> = () => {
         className="p-5"
         w="100vw">
             <header>
-                <Heading className="text-blue-700 font-mono"
+                <Heading className="font-mono"
+                color="blue.200"
                 fontFamily="Montserrat"
                 >Bloggy</Heading>
                 <Divider/>

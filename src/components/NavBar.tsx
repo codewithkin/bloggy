@@ -3,8 +3,9 @@ import { FunctionComponent, useState } from "react";
 import {AiOutlineHome, AiOutlineUser} from "react-icons/ai";
 import { BiBookReader, BiLogOut } from "react-icons/bi";
 import { BsFillBookmarkStarFill } from "react-icons/bs"
-import { FaBars, FaPlus, FaTimes } from "react-icons/fa";
+import { FaBars, FaPlus, FaTimes, FaUserPlus } from "react-icons/fa";
 import IconLink from "./IconLink";
+import { auth } from "../config/firebase";
 
 interface NavBarProps {
     
@@ -16,13 +17,13 @@ const NavBar: FunctionComponent<NavBarProps> = () => {
     return ( 
         display ?
         <Grid 
-        backgroundColor="gray.400"
+        backgroundColor="blue.200"
         w={{ base: `full`, lg: "6vw" }}
         justifyContent="center"
         alignItems="center"
         h="100vh"
         p="10"
-        shadow={{ base: "1rem" }}
+        shadow={{ lg: "dark-lg" }}
         position="relative"
         >
             <Icon 
@@ -42,13 +43,19 @@ const NavBar: FunctionComponent<NavBarProps> = () => {
             <IconLink setDisplay={setDisplay} dest="/blog/new" color="" icon={FaPlus} linkText="New blog" />
             <Divider />
             <Box>
-                { window.innerWidth < 400 ?
-                <Button
-                colorScheme="red"
-                variant="link"
-                >Logout</Button> :
-                <BiLogOut fill="red" size={40}
-                />
+                {
+                    auth.currentUser ?
+                    window.innerWidth < 400 ?
+                        <Button
+                        colorScheme="red"
+                        variant="link"
+                        >Logout</Button> :
+                        <BiLogOut fill="red" size={40}
+                        />
+                    : 
+                    <Icon 
+                    boxSize={15}
+                    as={FaUserPlus} />
                 }
             </Box>
         </Grid> :

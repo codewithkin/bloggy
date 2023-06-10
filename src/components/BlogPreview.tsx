@@ -1,22 +1,26 @@
-import { Badge, Button, Card, CardBody, CardFooter, CardHeader, Divider, Flex, Heading, Icon, Image, Link, Text } from "@chakra-ui/react";
+import { Avatar, Badge, Button, Card, CardBody, CardFooter, CardHeader, Divider, Flex, Heading, Icon, Image, Link, Text } from "@chakra-ui/react";
 import { blog } from "./RecentPosts";
 import { FunctionComponent } from "react";
 import { Link as RLink } from "react-router-dom"
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
+import { auth } from "../config/firebase";
 
 interface BlogPreviewProps {
     blog: blog
 }
  
 const BlogPreview: FunctionComponent<BlogPreviewProps> = ({blog}) => {
+    console.log(auth.currentUser?.photoURL)
     return ( 
         <Card 
         variant="filled"
-        maxWidth="400px"
-        background="gray.200"
+        minWidth={{ base: "300px" }}
+        maxWidth={{ md: "400px" }}
+        shadow="dark-lg"
         minHeight="400px"
         alignContent="center"
         justifyContent="center"
+        position="relative"
         >
             <Image 
             maxHeight="200px"
@@ -27,10 +31,30 @@ const BlogPreview: FunctionComponent<BlogPreviewProps> = ({blog}) => {
                 >
                     {blog.Title}
                 </Heading>
-                <Text>By <span
-                
-                className="text-rose-600 font-bold font-Montserrat"
-                >{blog.Author}</span></Text>
+                <Badge
+                position="absolute"
+                top={2}
+                left={2}
+                colorScheme="cyan"
+                px="0.6rem"
+                py="0.3rem"
+                rounded="2xl"
+                >
+                    <Flex
+                    alignItems="center"
+                    gap="5px"
+                    >
+                        <Avatar 
+                        size="sm"
+                        src={blog.Poster.photoUrl}
+                        name={blog.Poster.name}
+                        />
+                        <Text
+                        ><span
+                        className="font-bold font-Montserrat"
+                        >{blog.Poster.name}</span></Text>
+                    </Flex>
+                </Badge>
                 <Divider />
             </CardHeader>
 

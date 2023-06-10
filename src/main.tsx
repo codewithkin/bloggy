@@ -6,6 +6,7 @@ import Root from './components/Root.tsx'
 import NotFound from './error components/NotFound.tsx'
 import Home from './Pages/Home.tsx'
 import Auth from './components/Auth.tsx'
+import BlogPosts from './Pages/BlogPosts.tsx'
 
   const router = createBrowserRouter([
     {
@@ -20,6 +21,15 @@ import Auth from './components/Auth.tsx'
         {
           path: "login",
           element: <Auth />
+        },
+        {
+          path: "blogs/",
+          children: [
+            {
+              path: "all",
+              element: <BlogPosts />
+            }
+          ]
         }
       ]
     },
