@@ -2,7 +2,6 @@ import { Box, Divider, Heading } from "@chakra-ui/react";
 import { FunctionComponent } from "react";
 import RecentPosts from "../components/RecentPosts";
 import RecentReads from "../components/RecentReads";
-import News from "../components/News";
 
 interface HomeProps {
     
@@ -23,7 +22,6 @@ const Home: FunctionComponent<HomeProps> = () => {
 
             <RecentPosts />
             <RecentReads />
-            <News />
         </Box>
      );
 }
