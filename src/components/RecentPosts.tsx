@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Flex, Spinner } from "@chakra-ui/react";
 import { FunctionComponent, useEffect, useState } from "react";
 import { getDocs } from "firebase/firestore";
 import { collectionRef } from "../config/firebase";
@@ -8,10 +8,12 @@ export interface blog {
     Title: string,
     Topics: Array<String>,
     Author: string,
-    description: string,
+    Description: string,
     createdAT: Date,
-    comments: Array<object>,
-    id: string
+    Comments: Array<object>,
+    id: string,
+    Bookmarked: boolean,
+    BlogImageUrl: string
 }
 
 interface RecentPostsProps {
@@ -26,9 +28,6 @@ const RecentPosts: FunctionComponent<RecentPostsProps> = () => {
             const snap = await getDocs(collectionRef);
             const blogs = snap.docs.map(doc => doc.data());
             setDocs(blogs)
-            blogs.map(blog => {
-                console.log(blog.Topic)
-            })
         }
         fetchData();
     }, [])
@@ -39,22 +38,27 @@ const RecentPosts: FunctionComponent<RecentPostsProps> = () => {
             <h2
              className="font-bold text-2xl"
             >Recent blog posts</h2>
-            {
-                docs ?
-                docs.map((doc: blog) => {
-                    return(
-                        <BlogPreview
-                        key={doc.id}
-                         blog={doc} />
-                )})
-                
-                :
-                <section>
-                    <p
-                    className="text-gray-400 font-bold text-xl"
-                    >No recent activity</p>
-                    </section>
-            }
+            <Flex
+            className="grid md:Flex flex-wrap"
+            gap="2rem"
+            >
+                {
+                    docs ?
+                    docs.map((doc: blog) => {
+                        return(
+                            <BlogPreview
+                            key={doc.id}
+                            blog={doc} />
+                    )})
+                    
+                    :
+                        <Spinner 
+                        p={{ base: "0.8rem", lg: "2rem" }}
+                        size="xl"
+                        emptyColor="blue.300"
+                        />
+                }
+            </Flex>
         </Box>
      );
 }

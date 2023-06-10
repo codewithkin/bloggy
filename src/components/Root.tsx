@@ -12,7 +12,11 @@ const Root: FunctionComponent<RootProps> = () => {
             <section className="md:w-1/9 md:h-full">
                 <NavBar />
             </section>
-            <section className="md:w-full md:h-[100vh]">
+            <section 
+            style={{
+                overflowY: "scroll"
+            }}
+            className="md:w-full md:h-[100vh]">
                 <Outlet 
                 />
             </section>
