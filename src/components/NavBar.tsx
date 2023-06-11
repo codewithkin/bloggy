@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Grid, Icon } from "@chakra-ui/react";
+import { Box, Button, Divider, Flex, Grid, Heading, Icon } from "@chakra-ui/react";
 import { FunctionComponent, useState } from "react";
 import {AiOutlineHome, AiOutlineUser} from "react-icons/ai";
 import { BiBookReader, BiLogOut } from "react-icons/bi";
@@ -15,59 +15,75 @@ const NavBar: FunctionComponent<NavBarProps> = () => {
     const [display, setDisplay] = useState<boolean>(false);
 
     return ( 
-        display ?
         <Grid 
         backgroundColor="blue.200"
         w={{ base: `full`, lg: "6vw" }}
         justifyContent="center"
         alignItems="center"
-        h="100vh"
-        p="10"
         shadow={{ lg: "dark-lg" }}
         position="relative"
+        p="5"
         >
-            <Icon 
-            fill="blue.600"
-            as={FaTimes} 
-            boxSize={7}
-            onClick={() => setDisplay(!display)}
-            position="absolute"
-            right={10}
-            top={10}
-            w={{ base: "20px", md: 0 }}
-            />
-            <IconLink setDisplay={setDisplay} dest="/home" color="" icon={AiOutlineHome} linkText="Home" />
-            <IconLink setDisplay={setDisplay} dest="/blogs/all" color="" icon={BiBookReader} linkText="Articles" />
-            <IconLink setDisplay={setDisplay} dest="/blogs/favorites" color="" icon={BsFillBookmarkStarFill} linkText="Favorites" />
-            <IconLink setDisplay={setDisplay} dest="/account" color="" icon={AiOutlineUser} linkText="Account" />
-            <IconLink setDisplay={setDisplay} dest="/blog/new" color="" icon={FaPlus} linkText="New blog" />
-            <Divider />
-            <Box>
-                {
-                    auth.currentUser ?
-                    window.innerWidth < 400 ?
-                        <Button
-                        colorScheme="red"
-                        variant="link"
-                        >Logout</Button> :
-                        <BiLogOut fill="red" size={40}
+            <Flex
+            display={{ base: "block", lg: "none" }}
+            gap="30px"
+            >
+            <Heading
+                        color="white"
+                        className="font-openSans"
+                        display={ display ? "none": "block" }
+                        >Bloggy</Heading>
+                <Icon 
+                        fill="blue.600"
+                        as={FaTimes} 
+                        boxSize={7}
+                        onClick={() => setDisplay(!display)}
+                        position="absolute"
+                        right={10}
+                        top={10}
+                        w={{ base: "20px", md: 0 }}
+                        display={{ base: display ? "block" : "none", lg: "none" }}
                         />
-                    : 
-                    <Icon 
-                    boxSize={15}
-                    as={FaUserPlus} />
-                }
-            </Box>
-        </Grid> :
-        <Icon 
-        as={FaBars}
-        boxSize={7} 
-        onClick={() => setDisplay(!display)}
-        position="absolute"
-        right={4}
-        top={6}
-        fill="blue.600"
-        />
+                        <Icon 
+                        display={{ base: display ? "none" : "block", lg: "none" }}
+                        as={FaBars}
+                        boxSize={7} 
+                        onClick={() => setDisplay(!display)}
+                        position="absolute"
+                        right={4}
+                        top={5}
+                        fill="blue.600"
+                />    
+            </Flex>
+            <Grid
+                display={{base: display ? "grid": "none", lg:"grid"}}
+                h="100vh"
+                p="10"
+            >
+                <IconLink setDisplay={setDisplay} dest="/home" color="" icon={AiOutlineHome} linkText="Home" />
+                <IconLink setDisplay={setDisplay} dest="/blogs/all" color="" icon={BiBookReader} linkText="Articles" />
+                <IconLink setDisplay={setDisplay} dest="/blogs/favorites" color="" icon={BsFillBookmarkStarFill} linkText="Favorites" />
+                <IconLink setDisplay={setDisplay} dest="/account" color="" icon={AiOutlineUser} linkText="Account" />
+                <IconLink setDisplay={setDisplay} dest="/blog/new" color="" icon={FaPlus} linkText="New blog" />
+                <Divider />
+                <Box>
+                    {
+                        auth.currentUser ?
+                        window.innerWidth < 400 ?
+                            <Button
+                            colorScheme="red"
+                            variant="link"
+                            >Logout</Button> :
+                            <BiLogOut fill="red" size={40}
+                            />
+                        : 
+                        <Icon 
+                        boxSize={15}
+                        as={FaUserPlus} />
+                    }
+                </Box>
+            </Grid>
+        </Grid> 
      );
 }
  

@@ -3,18 +3,16 @@ import { blog } from "./RecentPosts";
 import { FunctionComponent } from "react";
 import { Link as RLink } from "react-router-dom"
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
-import { auth } from "../config/firebase";
 
 interface BlogPreviewProps {
     blog: blog
 }
  
 const BlogPreview: FunctionComponent<BlogPreviewProps> = ({blog}) => {
-    console.log(auth.currentUser?.photoURL)
     return ( 
         <Card 
         variant="filled"
-        minWidth={{ base: "300px" }}
+        minWidth={{ base: "350px" }}
         maxWidth={{ md: "400px" }}
         shadow="dark-lg"
         minHeight="400px"

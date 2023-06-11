@@ -1,8 +1,7 @@
 import { Box, Flex, Spinner } from "@chakra-ui/react";
-import { FunctionComponent, useEffect, useState } from "react";
-import { getDocs } from "firebase/firestore";
-import { collectionRef } from "../config/firebase";
+import { FunctionComponent } from "react";
 import BlogPreview from "./BlogPreview";
+import { useDocs } from "../hooks/useDocs";
 
 type poster = {
     name: string,
@@ -27,27 +26,16 @@ interface RecentPostsProps {
 }
  
 const RecentPosts: FunctionComponent<RecentPostsProps> = () => {
-    const [docs, setDocs] = useState<any>();
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const snap = await getDocs(collectionRef);
-            const blogs = snap.docs.map(doc => doc.data());
-            setDocs(blogs)
-        }
-        fetchData();
-    }, [])
-
+    const docs = useDocs();
 
     return ( 
         <Box className="mt-4">
             <h2
-             className="font-bold text-2xl"
+            className="font-bold text-2xl"
             >Recent blog posts</h2>
             <Flex
-            className="grid md:flex"
+            className="grid md:flex overflow-y-scroll lg:overflow-y-hidden px-2"
             gap="2rem"
-            px="2rem"
             >
                 {
                     docs ?

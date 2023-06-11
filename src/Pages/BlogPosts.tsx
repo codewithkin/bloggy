@@ -1,36 +1,103 @@
-import { FunctionComponent } from "react";
-import { Heading, Grid, Link, Box, Text, Icon } from "@chakra-ui/react";
-import {Link as RLink} from "react-router-dom";
-import { FaPlus } from "react-icons/fa";
+import { FunctionComponent, useState } from "react";
+import { Box, Flex, Heading, Menu, MenuButton, Button, MenuList, MenuItem, Icon, Spinner } from "@chakra-ui/react";
+import { BsBriefcase, BsWebcam } from "react-icons/bs";
+import { GiTechnoHeart, GiSoccerBall } from "react-icons/gi"
+import { BiCodeCurly } from "react-icons/bi"
+import { useDocs } from "../hooks/useDocs";
+import BlogPreview from "../components/BlogPreview";
 
 interface BlogPostsProps {
     
 }
+
+type Topic = "All" | "General" | "Tech" | "Sport" | "Coding";
  
 const BlogPosts: FunctionComponent<BlogPostsProps> = () => {
-    const blogs = null;
+    const [topic, setTopic] = useState<Topic>("All");
+    const docs = useDocs();
+        const genDocs = docs ? docs.filter((doc: any) => doc.Topics.map((topic: any) => {
+            topic == "General"
+        })) : []
+        console.log(genDocs)
+
     return ( 
-        <Box mt={{ md: "2rem" }}>
-                <Heading>Latest blog posts</Heading>
-                <Grid mb="1rem">
-                    { blogs ?
-                        blogs :
-                        <Text className="text-gray-500 font-bold font-mono">Nothing to see here yet...</Text>
-                    }
-                </Grid>
-                <Link 
-                color="white"
-                className="bg-blue-700 font-semibold px-8 py-3 rounded-md"
-                as={RLink}
-                to="/login"
+        <Box
+        p="2rem"
+        >
+            <Flex
+            justifyContent="space-between"
+            >
+                <Heading
+                size={{ base: "lg" }}
                 >
-                    Create a new blog
-                    <Icon 
-                    as={FaPlus} 
-                    fill="white" 
-                    ml="5px" />
-                </Link>
-            </Box>
+                    {
+                        topic === "All" ? "All blog posts" : <p>Latest in <span className="text-red-500 font-openSans">{topic}</span></p>
+                    }
+                </Heading>
+                
+                <Menu>
+                    <MenuButton as={Button}>
+                        Topics
+                    </MenuButton>
+
+                    <MenuList>
+                    <MenuItem
+                        icon={<Icon as={BsWebcam} />}
+                        >
+                            All
+                        </MenuItem>
+                        <MenuItem
+                        icon={<Icon as={BsBriefcase} />}
+                        onClick={() => {
+                            setTopic("General");
+                        }}
+                        >
+                            General
+                        </MenuItem>
+                        <MenuItem
+                        icon={<Icon as={GiTechnoHeart} />}
+                        onClick={() => setTopic("Tech")}
+                        >
+                            Tech
+                        </MenuItem>
+                        <MenuItem
+                        icon={<Icon as={GiSoccerBall} />}
+                        onClick={() => setTopic("Sport")}
+                        >
+                            Sport
+                        </MenuItem>
+                        <MenuItem
+                        icon={<Icon as={BiCodeCurly} />}
+                        onClick={() => setTopic("Coding")}
+                        >
+                            Coding
+                        </MenuItem>
+                    </MenuList>
+                </Menu>
+            </Flex>
+
+            <section
+            className="grid lg:flex gap-x-6"
+            >
+                {
+                    docs ?
+                    genDocs ? 
+                    docs.map((doc: any) => {
+                        return (
+                            <BlogPreview blog={doc} />
+                        )
+                    }) :
+                    docs.map((doc: any) => {
+                        return (
+                            <BlogPreview blog={doc} />
+                        )
+                    }) :
+                    <Spinner 
+                    size="xl"
+                    />
+                }
+            </section>
+        </Box>
      );
 }
  
