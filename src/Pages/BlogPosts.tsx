@@ -1,24 +1,20 @@
 import { FunctionComponent, useState } from "react";
-import { Box, Flex, Heading, Menu, MenuButton, Button, MenuList, MenuItem, Icon, Spinner } from "@chakra-ui/react";
+import { Box, Flex, Heading, Menu, MenuButton, Button, MenuList, MenuItem, Icon, Container } from "@chakra-ui/react";
 import { BsBriefcase, BsWebcam } from "react-icons/bs";
 import { GiTechnoHeart, GiSoccerBall } from "react-icons/gi"
 import { BiCodeCurly } from "react-icons/bi"
-import { useDocs } from "../hooks/useDocs";
 import BlogPreview from "../components/BlogPreview";
+import { useFilteredDocs } from "../hooks/useFilteredDocs";
 
 interface BlogPostsProps {
     
 }
 
-type Topic = "All" | "General" | "Tech" | "Sport" | "Coding";
+export type Topic = "All" | "General" | "Tech" | "Sport" | "Coding";
  
 const BlogPosts: FunctionComponent<BlogPostsProps> = () => {
-    const [topic, setTopic] = useState<Topic>("All");
-    const docs = useDocs();
-        const genDocs = docs ? docs.filter((doc: any) => doc.Topics.map((topic: any) => {
-            topic == "General"
-        })) : []
-        console.log(genDocs)
+    const [topic, setTopic] = useState<Topic>("Sport");
+    const filDocs = useFilteredDocs(topic, topic) as any;
 
     return ( 
         <Box
@@ -80,21 +76,29 @@ const BlogPosts: FunctionComponent<BlogPostsProps> = () => {
             className="grid lg:flex gap-x-6"
             >
                 {
-                    docs ?
-                    genDocs ? 
-                    docs.map((doc: any) => {
+                    
+                }
+                {
+                    filDocs ?
+                    filDocs.length == 0 ?
+                    <Container>
+                        <Heading
+                        size={{ base: "lg", xl: "xl" }}
+                        color="gray.500"
+                        >
+                            Nothing to see here....
+                        </Heading> 
+                    </Container>:
+                    filDocs.map((doc: any) => {
                         return (
-                            <BlogPreview blog={doc} />
+                            <BlogPreview 
+                            blog={doc}
+                            />
                         )
-                    }) :
-                    docs.map((doc: any) => {
-                        return (
-                            <BlogPreview blog={doc} />
-                        )
-                    }) :
-                    <Spinner 
-                    size="xl"
-                    />
+                    }):
+                    <Container>
+                        <Heading>No posts under this topic</Heading>
+                    </Container>
                 }
             </section>
         </Box>

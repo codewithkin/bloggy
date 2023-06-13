@@ -66,7 +66,9 @@ const NavBar: FunctionComponent<NavBarProps> = () => {
                 <IconLink setDisplay={setDisplay} dest="/account" color="" icon={AiOutlineUser} linkText="Account" />
                 <IconLink setDisplay={setDisplay} dest="/blog/new" color="" icon={FaPlus} linkText="New blog" />
                 <Divider />
-                <Box>
+                <Box
+                className="text-center"
+                >
                     {
                         auth.currentUser ?
                         window.innerWidth < 400 ?
@@ -78,7 +80,8 @@ const NavBar: FunctionComponent<NavBarProps> = () => {
                             />
                         : 
                         <Icon 
-                        boxSize={15}
+                        ml="4px"
+                        boxSize={30}
                         as={FaUserPlus} />
                     }
                 </Box>
