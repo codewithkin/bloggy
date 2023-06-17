@@ -3,16 +3,21 @@ import { useEffect, useState } from "react";
 import { collectionRef } from "../config/firebase";
 
 export const useDocs = () => {
-    const [docs, setDocs] = useState<any>();
+    const [allDocs, setDocs] = useState<any>();
     useEffect(() => {
         const fetchData = async () => {
-            const snap = await getDocs(collectionRef)
-            const blogs = snap.docs.map(doc => doc.data());
-            setDocs(blogs);
-            
+            await getDocs(collectionRef).then((docs: any) => {
+                const docsArray: Array<object> = [];
+                docs.forEach((doc: any) => {
+                    const data = doc.data()
+                    docsArray.push(data);
+                    setDocs(docsArray)
+                    console.log(docsArray.length)
+                });
+            })
         }
         fetchData();
     }, [])
 
-    return docs
+    return allDocs
 }

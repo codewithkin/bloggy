@@ -29,12 +29,12 @@ const RecentPosts: FunctionComponent<RecentPostsProps> = () => {
     const docs = useDocs();
 
     return ( 
-        <Box className="mt-4">
+        <Box className="mt-4 px-6">
             <h2
-            className="font-bold text-2xl"
+            className="font-bold text-4xl md:text-4xl"
             >Recent blog posts</h2>
             <Flex
-            className="grid md:flex overflow-y-scroll lg:overflow-y-hidden px-2"
+            className="grid md:flex flex-wrap"
             gap="2rem"
             >
                 {
@@ -50,7 +50,6 @@ const RecentPosts: FunctionComponent<RecentPostsProps> = () => {
                         <Spinner 
                         p={{ base: "0.8rem", lg: "2rem" }}
                         size="xl"
-                        emptyColor="blue.300"
                         />
                 }
             </Flex>

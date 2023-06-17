@@ -9,14 +9,13 @@ interface RootProps {
 const Root: FunctionComponent<RootProps> = () => {
     return ( 
         <section className="grid md:flex w-full h-full">
-            <section className="md:w-1/9 md:h-full">
+            <section className="md:w-1/9 md:h-full overflow-hidden"
+            >
                 <NavBar />
             </section>
             <section 
-            style={{
-                overflowY: "scroll"
-            }}
-            className="md:w-full md:h-[100vh]">
+            className="md:w-full md:h-[100vh] overflow-scroll"
+            >
                 <Outlet 
                 />
             </section>

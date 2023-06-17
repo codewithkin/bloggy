@@ -1,7 +1,6 @@
-import { Avatar, Badge, Button, Card, CardBody, CardFooter, CardHeader, Divider, Flex, Heading, Icon, Image, Link, Text } from "@chakra-ui/react";
+import { Avatar, Badge, Button, Card, CardBody, CardFooter, CardHeader, Divider, Flex, Heading, Icon, Image, Text } from "@chakra-ui/react";
 import { blog } from "./RecentPosts";
 import { FunctionComponent } from "react";
-import { Link as RLink } from "react-router-dom"
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 
 interface BlogPreviewProps {
@@ -13,18 +12,25 @@ const BlogPreview: FunctionComponent<BlogPreviewProps> = ({blog}) => {
         <Card 
         variant="filled"
         minWidth={{ base: "350px" }}
-        maxWidth={{ md: "400px" }}
+        maxWidth={{ md: "800px" }}
         shadow="dark-lg"
-        minHeight="400px"
+        minHeight="200px"
+        h="auto"
         alignContent="center"
         justifyContent="center"
         position="relative"
+        direction={{ base: "column", lg: "row" }}
         >
+            
+            <CardHeader
+            p="0"
+            >
             <Image 
+            boxSize={{ base: "-moz-fit-content", md: "1000px" }}
             maxHeight="200px"
             src={blog.BlogImageUrl}/>
-            <CardHeader>
                 <Heading
+                p="0.5rem"
                 size={"lg"}
                 >
                     {blog.Title}
@@ -53,10 +59,7 @@ const BlogPreview: FunctionComponent<BlogPreviewProps> = ({blog}) => {
                         >{blog.Poster.name}</span></Text>
                     </Flex>
                 </Badge>
-                <Divider />
-            </CardHeader>
-
-            <Flex
+                <Flex
             gap="10px"
             >
                 {
@@ -71,35 +74,35 @@ const BlogPreview: FunctionComponent<BlogPreviewProps> = ({blog}) => {
                         )
                     })
                 }
-            </Flex>
+                </Flex>
+                <Divider />
+            </CardHeader>
 
-            <CardBody>
+            <section>
+            <CardBody
+            fontSize={{ base: "auto", md: "20px" }}
+            p="10px"
+            >
                 {
                     blog.Description.length > 200 ?
                     <Text
-                    className="font-bold"
                     >
                     {blog.Description.slice(0, 200)}...
-                    <Link 
-                    className="underline font-bold px-4 py-2 bg-blue-600 text-center text-white rounded-full w-[10rem]"
-                    colorScheme="blue.500"
-                    display="block"
-                    as={RLink}>Read full</Link>
                 </Text> :
-                    <Text
-                    className="font-bold"
-                    >
+                    <Text>
                         {blog.Description}
                     </Text>
                 }
             </CardBody>
 
             <CardFooter
+            py="0"
             >
                     <Button 
                     colorScheme="red"
-                    mt="4px"
-                    w="full"
+                    mt={{ base: "4px", lg: "0" }}
+                    w={{ base: "full", lg: "25%" }}
+                    p={{ base: "1rem" }}
                     >
                         Save
                         <Icon
@@ -108,6 +111,7 @@ const BlogPreview: FunctionComponent<BlogPreviewProps> = ({blog}) => {
                         as={ blog.Bookmarked ? FaBookmark : FaRegBookmark } />
                     </Button>
             </CardFooter>
+            </section>
         </Card>
      );
 }

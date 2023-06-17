@@ -16,6 +16,7 @@ const NavBar: FunctionComponent<NavBarProps> = () => {
 
     return ( 
         <Grid 
+        h={{ base: "auto", md: "100vh" }}
         backgroundColor="blue.200"
         w={{ base: `full`, lg: "6vw" }}
         justifyContent="center"
@@ -25,7 +26,7 @@ const NavBar: FunctionComponent<NavBarProps> = () => {
         p="5"
         >
             <Flex
-            display={{ base: "block", lg: "none" }}
+            display={{ base: "block", md: "none" }}
             gap="30px"
             >
             <Heading
@@ -56,9 +57,9 @@ const NavBar: FunctionComponent<NavBarProps> = () => {
                 />    
             </Flex>
             <Grid
-                display={{base: display ? "grid": "none", lg:"grid"}}
+                display={{base: display ? "grid": "none", md:"grid"}}
                 h="100vh"
-                p="10"
+                p="3"
             >
                 <IconLink setDisplay={setDisplay} dest="/home" color="" icon={AiOutlineHome} linkText="Home" />
                 <IconLink setDisplay={setDisplay} dest="/blogs/all" color="" icon={BiBookReader} linkText="Articles" />

@@ -1,4 +1,4 @@
-import { Box, Divider, Heading } from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
 import { FunctionComponent } from "react";
 import RecentPosts from "../components/RecentPosts";
 
@@ -10,14 +10,13 @@ const Home: FunctionComponent<HomeProps> = () => {
 
     return ( 
         <Box 
-        className=""
+        className="p-6"
         w="100vw">
             <header>
-                <Heading className="font-mono"
-                color="blue.200"
+                <Heading className="font-Montserrat"
                 fontFamily="Montserrat"
+                display={{ base: "none", md: "block" }}
                 >Bloggy</Heading>
-                <Divider/>
             </header>
 
             <RecentPosts />
