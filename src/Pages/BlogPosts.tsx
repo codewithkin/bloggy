@@ -1,6 +1,6 @@
 import { FunctionComponent, useState } from "react";
 import { Box, Flex, Heading, Menu, MenuButton, Button, MenuList, MenuItem, Icon, Container } from "@chakra-ui/react";
-import { BsBriefcase, BsWebcam } from "react-icons/bs";
+import { BsBriefcase } from "react-icons/bs";
 import { GiTechnoHeart, GiSoccerBall } from "react-icons/gi"
 import { BiCodeCurly } from "react-icons/bi"
 import BlogPreview from "../components/BlogPreview";

@@ -1,15 +1,22 @@
 import { Avatar, Badge, Button, Card, CardBody, CardFooter, CardHeader, Divider, Flex, Heading, Icon, Image, Text } from "@chakra-ui/react";
 import { blog } from "./RecentPosts";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useContext } from "react";
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { BlogContext } from "../context/BlogContext";
 
 interface BlogPreviewProps {
     blog: blog
 }
  
 const BlogPreview: FunctionComponent<BlogPreviewProps> = ({blog}) => {
+    const {updateBlog} = useContext(BlogContext);
+
     return ( 
         <Card 
+        as={Link}
+        to={`/blog`}
+        onClick={() => updateBlog(blog)}
         variant="filled"
         minWidth={{ base: "350px" }}
         maxWidth={{ md: "800px" }}
@@ -68,6 +75,7 @@ const BlogPreview: FunctionComponent<BlogPreviewProps> = ({blog}) => {
                             <Badge
                             colorScheme="blue"
                             p="0.3rem"
+                            key={Math.random()}
                             >
                                 {topic}
                             </Badge>

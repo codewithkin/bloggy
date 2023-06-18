@@ -7,6 +7,8 @@ import NotFound from './error components/NotFound.tsx'
 import Home from './Pages/Home.tsx'
 import Auth from './components/Auth.tsx'
 import BlogPosts from './Pages/BlogPosts.tsx'
+import Blog from './Pages/Blog.tsx'
+import { BlogContextProvider } from './context/BlogContext.tsx'
 
   const router = createBrowserRouter([
     {
@@ -23,6 +25,10 @@ import BlogPosts from './Pages/BlogPosts.tsx'
           element: <Auth />
         },
         {
+          path: "blog",
+          element: <Blog />
+        },
+        {
           path: "blogs/",
           children: [
             {
@@ -37,6 +43,8 @@ import BlogPosts from './Pages/BlogPosts.tsx'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <ChakraProvider>
-    <RouterProvider router={router} />
+    <BlogContextProvider>
+      <RouterProvider router={router} />
+    </BlogContextProvider>
   </ChakraProvider>,
 )

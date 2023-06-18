@@ -12,7 +12,6 @@ export const useDocs = () => {
                     const data = doc.data()
                     docsArray.push(data);
                     setDocs(docsArray)
-                    console.log(docsArray.length)
                 });
             })
         }

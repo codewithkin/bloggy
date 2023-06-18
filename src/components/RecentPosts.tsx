@@ -42,7 +42,7 @@ const RecentPosts: FunctionComponent<RecentPostsProps> = () => {
                     docs.map((doc: blog) => {
                         return(
                             <BlogPreview
-                            key={doc.id}
+                            key={Math.random()}
                             blog={doc} />
                     )})
                     
