@@ -6,6 +6,7 @@ import { BsFillBookmarkStarFill } from "react-icons/bs"
 import { FaBars, FaPlus, FaTimes, FaUserPlus } from "react-icons/fa";
 import IconLink from "./IconLink";
 import { auth } from "../config/firebase";
+import { Link } from "react-router-dom";
 
 interface NavBarProps {
     
@@ -80,10 +81,12 @@ const NavBar: FunctionComponent<NavBarProps> = () => {
                             <BiLogOut fill="red" size={40}
                             />
                         : 
-                        <Icon 
-                        ml="4px"
-                        boxSize={30}
-                        as={FaUserPlus} />
+                        <Link to="/login">
+                            <Icon 
+                            ml="4px"
+                            boxSize={30}
+                            as={FaUserPlus} />
+                        </Link>
                     }
                 </Box>
             </Grid>
