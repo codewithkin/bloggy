@@ -14,6 +14,10 @@ const BlogPreview: FunctionComponent<BlogPreviewProps> = ({blog}) => {
 
     return ( 
         <Card 
+        borderRadius={{ lg: "30px" }}
+        p={{ lg: "2rem" }}
+        w="100%"
+        h="100%"
         as={Link}
         to={`/blog`}
         onClick={() => updateBlog(blog)}
@@ -22,7 +26,6 @@ const BlogPreview: FunctionComponent<BlogPreviewProps> = ({blog}) => {
         maxWidth={{ md: "800px" }}
         shadow="dark-lg"
         minHeight="200px"
-        h="auto"
         alignContent="center"
         justifyContent="center"
         position="relative"
@@ -30,26 +33,38 @@ const BlogPreview: FunctionComponent<BlogPreviewProps> = ({blog}) => {
         >
             
             <CardHeader
+            alignItems="stretch"
+            h={{ lg: "full" }}
+            w={{ lg: "35%" }}
             p="0"
             >
-            <Image 
-            boxSize={{ base: "-moz-fit-content", md: "1000px" }}
-            maxHeight="200px"
-            src={blog.BlogImageUrl}/>
+                <Image 
+                h="auto"
+                w={{ lg: "100%" }}
+                boxSize={{ base: "-moz-fit-content", md: "1000px" }}
+                maxHeight="200px"
+                src={blog.BlogImageUrl}/>
+            </CardHeader>
+
+            <CardBody
+            py={{ lg: "0px" }}
+            w={{ lg: "65%" }}
+            display="grid"
+            >
                 <Heading
-                p="0.5rem"
                 size={"lg"}
                 >
                     {blog.Title}
                 </Heading>
                 <Badge
                 position="absolute"
-                top={2}
-                left={2}
+                top={{base: "2", lg: "10"}}
+                left={{base: "2", lg: "10"}}
                 colorScheme="cyan"
                 px="0.6rem"
                 py="0.3rem"
                 rounded="2xl"
+                className="h-auto"
                 >
                     <Flex
                     alignItems="center"
@@ -74,7 +89,7 @@ const BlogPreview: FunctionComponent<BlogPreviewProps> = ({blog}) => {
                         return (
                             <Badge
                             colorScheme="blue"
-                            p="0.3rem"
+                            py={{ lg: "5px" }}
                             key={Math.random()}
                             >
                                 {topic}
@@ -84,28 +99,24 @@ const BlogPreview: FunctionComponent<BlogPreviewProps> = ({blog}) => {
                 }
                 </Flex>
                 <Divider />
-            </CardHeader>
-
-            <section>
-            <CardBody
-            fontSize={{ base: "auto", md: "20px" }}
-            p="10px"
-            >
-                {
-                    blog.Description.length > 200 ?
-                    <Text
-                    >
-                    {blog.Description.slice(0, 200)}...
-                </Text> :
-                    <Text>
-                        {blog.Description}
-                    </Text>
-                }
-            </CardBody>
-
             <CardFooter
-            py="0"
+            fontSize={{ base: "auto", md: "20px" }}
+            px="10px"
+            py={{ lg: "0" }}
+            display="grid"
             >
+                <section>
+                    {
+                        blog.Description.length > 200 ?
+                        <Text
+                        >
+                        {blog.Description.slice(0, 100)}...
+                    </Text> :
+                        <Text>
+                            {blog.Description}
+                        </Text>
+                    }
+                </section>
                     <Button 
                     colorScheme="red"
                     mt={{ base: "4px", lg: "0" }}
@@ -119,7 +130,7 @@ const BlogPreview: FunctionComponent<BlogPreviewProps> = ({blog}) => {
                         as={ blog.Bookmarked ? FaBookmark : FaRegBookmark } />
                     </Button>
             </CardFooter>
-            </section>
+            </CardBody>
         </Card>
      );
 }
