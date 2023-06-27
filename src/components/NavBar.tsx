@@ -1,5 +1,5 @@
 import { Box, Button, Divider, Flex, Grid, Heading, Icon } from "@chakra-ui/react";
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import {AiOutlineHome, AiOutlineUser} from "react-icons/ai";
 import { BiBookReader, BiLogOut } from "react-icons/bi";
 import { BsFillBookmarkStarFill } from "react-icons/bs"
@@ -7,6 +7,7 @@ import { FaBars, FaPlus, FaTimes, FaUserPlus } from "react-icons/fa";
 import IconLink from "./IconLink";
 import { auth } from "../config/firebase";
 import { Link } from "react-router-dom";
+import { User } from "firebase/auth";
 
 interface NavBarProps {
     
@@ -14,6 +15,11 @@ interface NavBarProps {
  
 const NavBar: FunctionComponent<NavBarProps> = () => {
     const [display, setDisplay] = useState<boolean>(false);
+    const [user, setUser] = useState<User | null>();
+
+    useEffect(() => {
+        setUser(auth.currentUser)
+    }, [auth])
 
     return ( 
         <Grid 
@@ -72,7 +78,7 @@ const NavBar: FunctionComponent<NavBarProps> = () => {
                 className="text-center"
                 >
                     {
-                        auth.currentUser ?
+                        user ?
                         window.innerWidth < 400 ?
                             <Button
                             colorScheme="red"

@@ -1,28 +1,25 @@
 import { Button, Container, Heading, Icon } from "@chakra-ui/react";
 import { onAuthStateChanged, signInWithPopup } from "firebase/auth";
-import { FunctionComponent } from "react";
+import { useEffect } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { auth } from "../config/firebase";
 import { GoogleAuthProvider } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-
-interface AuthProps {
-    
-}
  
-const Auth: FunctionComponent<AuthProps> = () => {
+const Auth = () => {
     const navigate = useNavigate();
 
-
-     onAuthStateChanged(auth, user => {
-        if(user == null) {
-            console.log("Error")
-        }
-        else {
-            console.log("success")
-            navigate("/home")
-        }
-    }) 
+     useEffect(() => {
+        onAuthStateChanged(auth, user => {
+            if(user !== null) {
+                navigate("/home")
+            }
+    
+            else {
+                console.log("Error")
+            }
+        }) 
+     })
 
     return ( 
         <Container

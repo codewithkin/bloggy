@@ -1,16 +1,16 @@
 import { Avatar, Badge, Button, Card, CardBody, CardFooter, CardHeader, Divider, Flex, Heading, Icon, Image, Text } from "@chakra-ui/react";
-import { blog } from "./RecentPosts";
 import { FunctionComponent, useContext } from "react";
 import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { BlogContext } from "../context/BlogContext";
+import { docStructure } from "../hooks/useDocs";
 
 interface BlogPreviewProps {
-    blog: blog
+    blog: docStructure
 }
  
 const BlogPreview: FunctionComponent<BlogPreviewProps> = ({blog}) => {
-    const {updateBlog} = useContext(BlogContext);
+    const { updateBlog } = useContext(BlogContext);
 
     return ( 
         <Card 
@@ -19,7 +19,7 @@ const BlogPreview: FunctionComponent<BlogPreviewProps> = ({blog}) => {
         w="100%"
         h="100%"
         as={Link}
-        to={`/blog`}
+        to={`/blog/${blog.id}`}
         onClick={() => updateBlog(blog)}
         variant="filled"
         minWidth={{ base: "350px" }}
@@ -43,7 +43,7 @@ const BlogPreview: FunctionComponent<BlogPreviewProps> = ({blog}) => {
                 w={{ lg: "100%" }}
                 boxSize={{ base: "-moz-fit-content", md: "1000px" }}
                 maxHeight="200px"
-                src={blog.BlogImageUrl}/>
+                src={blog.data.BlogImageUrl}/>
             </CardHeader>
 
             <CardBody
@@ -54,7 +54,7 @@ const BlogPreview: FunctionComponent<BlogPreviewProps> = ({blog}) => {
                 <Heading
                 size={"lg"}
                 >
-                    {blog.Title}
+                    {blog.data.Title}
                 </Heading>
                 <Badge
                 position="absolute"
@@ -72,20 +72,20 @@ const BlogPreview: FunctionComponent<BlogPreviewProps> = ({blog}) => {
                     >
                         <Avatar 
                         size="sm"
-                        src={blog.Poster.photoUrl}
-                        name={blog.Poster.name}
+                        src={blog.data.Poster.photoUrl}
+                        name={blog.data.Poster.name}
                         />
                         <Text
                         ><span
                         className="font-bold font-Montserrat"
-                        >{blog.Poster.name}</span></Text>
+                        >{blog.data.Poster.name}</span></Text>
                     </Flex>
                 </Badge>
                 <Flex
             gap="10px"
             >
                 {
-                    blog.Topics.map(topic => {
+                    blog.data.Topics.map(topic => {
                         return (
                             <Badge
                             colorScheme="blue"
@@ -107,13 +107,13 @@ const BlogPreview: FunctionComponent<BlogPreviewProps> = ({blog}) => {
             >
                 <section>
                     {
-                        blog.Description.length > 200 ?
+                        blog.data.Description.length > 200 ?
                         <Text
                         >
-                        {blog.Description.slice(0, 100)}...
+                        {blog.data.Description.slice(0, 100)}...
                     </Text> :
                         <Text>
-                            {blog.Description}
+                            {blog.data.Description}
                         </Text>
                     }
                 </section>
@@ -127,7 +127,7 @@ const BlogPreview: FunctionComponent<BlogPreviewProps> = ({blog}) => {
                         <Icon
                         boxSize={25}
                         ml="4px"
-                        as={ blog.Bookmarked ? FaBookmark : FaRegBookmark } />
+                        as={ blog.data.Bookmarked ? FaBookmark : FaRegBookmark } />
                     </Button>
             </CardFooter>
             </CardBody>

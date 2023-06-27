@@ -1,7 +1,7 @@
 import { Box, Flex, Spinner } from "@chakra-ui/react";
 import { FunctionComponent } from "react";
 import BlogPreview from "./BlogPreview";
-import { useDocs } from "../hooks/useDocs";
+import useDocs, { docStructure } from "../hooks/useDocs";
 
 type poster = {
     name: string,
@@ -9,7 +9,7 @@ type poster = {
     photoUrl: string
 }
 
-export interface blog {
+export type blog = {
     Title: string,
     Topics: Array<String>,
     Poster: poster,
@@ -39,7 +39,7 @@ const RecentPosts: FunctionComponent<RecentPostsProps> = () => {
             >
                 {
                     docs ?
-                    docs.map((doc: blog) => {
+                    docs.map((doc: docStructure) => {
                         return(
                             <BlogPreview
                             key={Math.random()}

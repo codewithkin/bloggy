@@ -25,7 +25,7 @@ import { BlogContextProvider } from './context/BlogContext.tsx'
           element: <Auth />
         },
         {
-          path: "blog",
+          path: "blog/:id",
           element: <Blog />
         },
         {

@@ -1,15 +1,23 @@
 import { Box, Heading } from "@chakra-ui/react";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import RecentPosts from "../components/RecentPosts";
+import { auth } from "../config/firebase";
+import { User } from "firebase/auth";
+import Filler from "../components/Filler";
 
 interface HomeProps {
     
 }
  
 const Home: FunctionComponent<HomeProps> = () => {
+    const [user, setUser] = useState<User | null>();
 
-    return ( 
-        <Box 
+    useEffect(() => {
+        setUser(auth.currentUser);
+    }, [auth])
+
+    return user ?
+        <Box
         className="p-6"
         w="100vw">
             <header>
@@ -21,7 +29,8 @@ const Home: FunctionComponent<HomeProps> = () => {
 
             <RecentPosts />
         </Box>
-     );
+        :
+        <Filler />
 }
  
 export default Home;

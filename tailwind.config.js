@@ -9,7 +9,8 @@ export default {
       fontFamily: {
         "Inter": ["Inter", "sans-serif"],
         "openSans": ["Open Sans", "sans-serif"],
-        "Montserrat": ["Montserrat", "sans-serif"]
+        "Montserrat": ["Montserrat", "sans-serif"],
+        "Quicksand": ["Quicksand", "sans-serif"],
       }
     },
   },

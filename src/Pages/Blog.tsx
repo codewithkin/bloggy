@@ -1,86 +1,126 @@
-import { FunctionComponent, useContext } from "react";
-import { BlogContext } from "../context/BlogContext";
-import { Box, Button, Heading, Icon, Image, Text } from "@chakra-ui/react";
+import { DocumentData, doc, getDoc } from "firebase/firestore";
+import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
+import { db } from "../config/firebase";
+import { Badge, Box, Container, Heading, Image, Spinner, Text } from "@chakra-ui/react";
 import { blog } from "../components/RecentPosts";
-import { FacebookShareButton, TwitterShareButton, LinkedinShareButton } from "react-share";
-import { FaFacebook, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { TwitterShareButton, LinkedinShareButton, FacebookShareButton, WhatsappShareButton, LinkedinIcon, FacebookIcon, TwitterIcon, WhatsappIcon } from "react-share"
 
-interface BlogProps {
+const Blog = () => {
+    const pathVars = useParams();
+    const id = pathVars.id || "3030";
+    const ref = doc(db, "blogs", id);
+    const [blog, setBlog] = useState<DocumentData | blog>();
+    const [isPending, setPending] = useState<boolean>(true);
+
+    useEffect(() => {
+        const getDocuments = async () => {
+            await getDoc(ref).then((snapshot) => {
+                const data = snapshot.data();
+                setBlog(data);
+                setPending(false);
+            }).catch((err) => console.log(err))
+        }
+
+        getDocuments();
+    })
+
+     
+    return isPending ?
+        <Container
+        w="100vw"
+        h="100vh"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        >
+            <Heading
+            mr="6px"
+            >Fetching blog...</Heading>
+            <Spinner 
+            thickness="3px"
+            size="xl"
+            emptyColor="gray.200"
+            />
+        </Container> :
+        (
+            <Box>
+                <Image 
+                src={blog?.BlogImageUrl} 
+                w="100vw"
+                h="-webkit-fit-content"
+                />
+    
+                <Container
+                maxW="container.sm"
+                >
+    
+                    <section className="content lg:p-4">
+                            <Heading
+                            as="h1"
+                            size={{ lg: "3xl" }}
+                            >{blog?.Title}</Heading>
+                            <Text
+                            >By <span className="text-blue-700 font-bold">{blog?.Poster.name}</span></Text>
+                        
+    
+                        <section className="topics gap-4 flex">
+                            {
+                                blog?.Topics.map((topic: string) => {
+                                    return (
+                                        <Badge 
+                                        colorScheme="blue"
+                                        variant="solid">{topic}</Badge>
+                                    )
+                                })
+                            }
+                        </section>
+    
+                        <section>
+                            <Text
+                            className="font-Montserrat"
+                            fontSize={{ lg: "xl" }}
+                            >{blog?.Description}</Text>
+                        </section>
+                    </section>
+               
+
+                <Box as="footer">
+                    <Heading>Share this post</Heading>
+                    <Box>
+                        <FacebookShareButton 
+                        quote={`I am reading this awesome Blog post on Bloggy. It's called ${blog?.Title} by ${blog?.Poster.name}`}
+                        url={`https://bloggy-preview/blog/${id}.netify.app`}>
+                            <FacebookIcon />
+                        </FacebookShareButton>
+
+                        <TwitterShareButton
+                        title={`I am reading this awesome Blog post on Bloggy. It's called ${blog?.Title} by ${blog?.Poster.name}`}
+                        url={`https://bloggy-preview/blog/${id}.netify.app`}
+                        >
+                            <TwitterIcon />
+                        </TwitterShareButton>
+
+                        <LinkedinShareButton
+                        url={`https://bloggy-preview/blog/${id}.netify.app`}
+                        title={`I am reading this awesome Blog post on Bloggy. It's called ${blog?.Title} by ${blog?.Poster.name}`}
+                        summary="Shared from bloggy"
+                        >
+                            <LinkedinIcon />
+                        </LinkedinShareButton>
+
+                        <WhatsappShareButton
+                        url={`https://bloggy-preview/blog/${id}.netify.app`}
+                        title={`I am reading this awesome Blog post on Bloggy. It's called ${blog?.Title} by ${blog?.Poster.name}`}
+                        >
+                            <WhatsappIcon />
+                        </WhatsappShareButton>
+                    </Box>
+                    
+                </Box>
+                </Container>
+            </Box>)
     
 }
- 
-const Blog: FunctionComponent<BlogProps> = () => {
-    const {currentBlog} = useContext(BlogContext);
-    const blog: blog  = currentBlog;
 
-    return ( 
-        <Box
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        justifyItems="center"
-        alignContent="center"
-        >
-            <Image src={blog.BlogImageUrl} 
-                    alt={blog.Title}
-                    w={{ lg: "100%" }}
-                    mb={{ lg: "20px" }}
-                    />
-           <Box
-           p={{ lg: "1rem"}}
-           >
-           <Box>
-            <Heading
-            size={{ lg: "2xl" }}
-            >{blog.Title}</Heading>
-            <Text>By <span className="text-blue-700 font-bold">{blog.Poster.name}</span></Text>
-           </Box>
-
-           <Text
-           fontSize={{ base: "lg", lg: "2xl" }}
-           className="font-openSans"
-           >
-            {blog.Description}
-           </Text>
-
-           <section className="share-buttons flex lg:gap-4">
-            <FacebookShareButton url="https://bloggy-preview.netlify.com" title={`I am reading this amazing article on Bloggy, it's called ${blog.Title} by ${blog.Poster.name}`}>
-                <Button
-                className="flex gap-2"
-                colorScheme="blue"
-                >
-                    Share on Facebook
-                    <Icon as={FaFacebook}
-                    boxSize={6}
-                    /> 
-                </Button>
-            </FacebookShareButton>
-            <TwitterShareButton url="https://bloggy-preview.netlify.com" title={`I am reading this amazing article on Bloggy, it's called ${blog.Title} by ${blog.Poster.name}`}>
-                <Button
-                className="flex gap-2"
-                colorScheme="blue"
-                >
-                    Share on Twitter
-                    <Icon as={FaTwitter}
-                    boxSize={6}
-                    /> 
-                </Button>
-            </TwitterShareButton>
-            <LinkedinShareButton url="https://bloggy-preview.netlify.com" title={`I am reading this amazing article on Bloggy, it's called ${blog.Title} by ${blog.Poster.name}`}>
-                <Button
-                className="flex gap-2"
-                colorScheme="blue"
-                >
-                    Share on LinkedIn  
-                    <Icon as={FaLinkedin}
-                    boxSize={6}
-                    /> 
-                </Button>
-            </LinkedinShareButton>
-           </section>
-           </Box>
-        </Box>
-     );
-}
- 
-export default Blog;
+export default  Blog
