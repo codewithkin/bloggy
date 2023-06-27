@@ -2,7 +2,7 @@ import { DocumentData, doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { db } from "../config/firebase";
-import { Badge, Box, Container, Heading, Image, Spinner, Text } from "@chakra-ui/react";
+import { Badge, Box, Container, Heading, Icon, Image, Spinner, Text } from "@chakra-ui/react";
 import { blog } from "../components/RecentPosts";
 import { TwitterShareButton, LinkedinShareButton, FacebookShareButton, WhatsappShareButton, LinkedinIcon, FacebookIcon, TwitterIcon, WhatsappIcon } from "react-share"
 
@@ -58,7 +58,7 @@ const Blog = () => {
                     <section className="content lg:p-4">
                             <Heading
                             as="h1"
-                            size={{ lg: "3xl" }}
+                            size={{ base: "lg", lg: "3xl" }}
                             >{blog?.Title}</Heading>
                             <Text
                             >By <span className="text-blue-700 font-bold">{blog?.Poster.name}</span></Text>
@@ -69,6 +69,7 @@ const Blog = () => {
                                 blog?.Topics.map((topic: string) => {
                                     return (
                                         <Badge 
+                                        key={Math.random()}
                                         colorScheme="blue"
                                         variant="solid">{topic}</Badge>
                                     )
@@ -91,14 +92,18 @@ const Blog = () => {
                         <FacebookShareButton 
                         quote={`I am reading this awesome Blog post on Bloggy. It's called ${blog?.Title} by ${blog?.Poster.name}`}
                         url={`https://bloggy-preview/blog/${id}.netify.app`}>
-                            <FacebookIcon />
+                            <Icon as={ FacebookIcon } 
+                            fontSize={{ base: 38 }}
+                            />
                         </FacebookShareButton>
 
                         <TwitterShareButton
                         title={`I am reading this awesome Blog post on Bloggy. It's called ${blog?.Title} by ${blog?.Poster.name}`}
                         url={`https://bloggy-preview/blog/${id}.netify.app`}
                         >
-                            <TwitterIcon />
+                            <Icon as={TwitterIcon} 
+                            fontSize={{ base: 38 }}
+                            />
                         </TwitterShareButton>
 
                         <LinkedinShareButton
@@ -106,14 +111,18 @@ const Blog = () => {
                         title={`I am reading this awesome Blog post on Bloggy. It's called ${blog?.Title} by ${blog?.Poster.name}`}
                         summary="Shared from bloggy"
                         >
-                            <LinkedinIcon />
+                            <Icon as={LinkedinIcon} 
+                            fontSize={{ base: 38 }}
+                            />
                         </LinkedinShareButton>
 
                         <WhatsappShareButton
                         url={`https://bloggy-preview/blog/${id}.netify.app`}
                         title={`I am reading this awesome Blog post on Bloggy. It's called ${blog?.Title} by ${blog?.Poster.name}`}
                         >
-                            <WhatsappIcon />
+                            <Icon as={WhatsappIcon } 
+                            fontSize={{ base: 38 }}
+                            />
                         </WhatsappShareButton>
                     </Box>
                     
