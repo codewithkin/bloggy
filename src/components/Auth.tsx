@@ -10,16 +10,16 @@ const Auth = () => {
     const navigate = useNavigate();
 
      useEffect(() => {
-        onAuthStateChanged(auth, user => {
-            if(user !== null) {
+        onAuthStateChanged((auth), user => {
+            if(user != null) {
                 navigate("/home")
             }
     
             else {
                 console.log("Error")
             }
-        }) 
-     })
+        })
+    })
 
     return ( 
         <Container
