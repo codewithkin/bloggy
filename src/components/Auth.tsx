@@ -1,5 +1,5 @@
 import { Button, Container, Heading, Icon } from "@chakra-ui/react";
-import { onAuthStateChanged, signInWithRedirect } from "firebase/auth";
+import { onAuthStateChanged, signInWithPopup } from "firebase/auth";
 import { useEffect } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { auth } from "../config/firebase";
@@ -30,7 +30,7 @@ const Auth = () => {
         >
             <Heading>Login or sign up</Heading>
             <Button
-            onClick={() => signInWithRedirect(auth, new GoogleAuthProvider())}
+            onClick={() => signInWithPopup(auth, new GoogleAuthProvider())}
             colorScheme="blue">
                 Login with google
                 <Icon ml="8px" as={FaGoogle} boxSize={5} />
