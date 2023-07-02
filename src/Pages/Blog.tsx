@@ -80,7 +80,7 @@ const Blog = () => {
                         <section>
                             <Text
                             className="font-Montserrat"
-                            fontSize={{ lg: "xl" }}
+                            fontSize={{ base: "lg", lg: "xl" }}
                             >{blog?.Description}</Text>
                         </section>
                     </section>

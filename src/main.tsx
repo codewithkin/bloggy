@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom/client'
 import {ChakraProvider} from "@chakra-ui/react"
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 import './index.css'
 import Root from './components/Root.tsx'
 import NotFound from './error components/NotFound.tsx'
@@ -10,7 +10,21 @@ import BlogPosts from './Pages/BlogPosts.tsx'
 import Blog from './Pages/Blog.tsx'
 import { BlogContextProvider } from './context/BlogContext.tsx'
 
-  const router = createBrowserRouter([
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="/" errorElement={<NotFound />} element={<Root />}>
+        <Route path="home" element={<Home />} />
+        <Route path="login" element={<Auth/>} />
+        <Route path="blog/:id" element={<Blog/>} />
+        <Route path="blogs/">
+          <Route path="all" element={<BlogPosts />} />
+        </Route>
+      </Route>
+    )
+  )
+
+  /*
+[
     {
       path: "/",
       element: <Root />,
@@ -39,7 +53,8 @@ import { BlogContextProvider } from './context/BlogContext.tsx'
         }
       ]
     },
-  ])
+  ]
+  */
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <ChakraProvider>

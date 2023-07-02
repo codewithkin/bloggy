@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from "react";
+import { useState } from "react";
 import { Box, Flex, Heading, Menu, MenuButton, Button, MenuList, MenuItem, Icon, Container } from "@chakra-ui/react";
 import { BsBriefcase } from "react-icons/bs";
 import { GiTechnoHeart, GiSoccerBall } from "react-icons/gi"
@@ -8,16 +8,13 @@ import { useFilteredDocs } from "../hooks/useFilteredDocs";
 import { Link } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 
-interface BlogPostsProps {
-    
-}
-
 export type Topic = "General" | "Tech" | "Sport" | "Coding";
  
-const BlogPosts: FunctionComponent<BlogPostsProps> = () => {
+const BlogPosts = () => {
     const [topic, setTopic] = useState<Topic>("General");
     const [desc, setDesc] = useState<string>("A general overview of all the posts available");
-    const filDocs = useFilteredDocs(topic, topic) as any;
+    const filDocs = useFilteredDocs(topic) as any;
+    console.log(filDocs)
 
     return ( 
         <Box
@@ -94,11 +91,14 @@ const BlogPosts: FunctionComponent<BlogPostsProps> = () => {
             className="grid lg:flex gap-x-6 px-6"
             >
                 {
-                    
-                }
-                {
                     filDocs ?
-                    filDocs.length == 0 ?
+                    filDocs.map((doc: any) => {
+                        return (
+                            <BlogPreview 
+                            blog={doc}
+                            />
+                        )
+                    }):
                     <Container
                     >
                         <Heading
@@ -114,16 +114,6 @@ const BlogPosts: FunctionComponent<BlogPostsProps> = () => {
                             <FaPlus />
                             </Link>
                         </Heading> 
-                    </Container>:
-                    filDocs.map((doc: any) => {
-                        return (
-                            <BlogPreview 
-                            blog={doc}
-                            />
-                        )
-                    }):
-                    <Container>
-                        <Heading>No posts under this topic</Heading>
                     </Container>
                 }
             </section>

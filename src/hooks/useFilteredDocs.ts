@@ -1,18 +1,18 @@
+import { getDocs, query, where } from "firebase/firestore";
+import { collectionRef } from "../config/firebase";
 import { useEffect, useState } from "react";
-import useDocs, { docStructure } from "./useDocs";
-import { Topic } from "../Pages/BlogPosts";
 
-export const useFilteredDocs = (dep: Topic, specTopic: Topic) => {
-    const docs = useDocs();
-    const [all, setAll] = useState<docStructure[]>();
+export function useFilteredDocs(topic: string){
+    const [docs, setDocs] = useState<any>();
     useEffect(() => {
-        const filteredDocs = docs ? docs.filter((doc:  any) => doc.Topics.includes(specTopic) ) : undefined;
-        setAll(filteredDocs);
-        console.log(
-            `We got these docs: ${all} from this topic: ${specTopic}`
-        );
-        console.log(docs)
-    }, [dep, all, docs, specTopic])
-
-    return all
+        const getFilteredDocs = async (topic: string) => {
+            const Query = query(collectionRef, where("Topics", "array-contains", topic));
+            const snapshot = await getDocs(Query)
+            const posts = snapshot.docs.map((doc: any) => ({id: doc.id, ...doc.data()}))
+            setDocs(posts)
+        }
+        getFilteredDocs(topic)
+        console.log(topic)
+    }, [topic])
+    return docs
 }

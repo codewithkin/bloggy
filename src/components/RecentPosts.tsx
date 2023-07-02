@@ -1,7 +1,6 @@
 import { Box, Flex, Spinner } from "@chakra-ui/react";
-import { FunctionComponent } from "react";
 import BlogPreview from "./BlogPreview";
-import useDocs, { docStructure } from "../hooks/useDocs";
+import useDocs from "../hooks/useDocs";
 
 type poster = {
     name: string,
@@ -11,7 +10,7 @@ type poster = {
 
 export type blog = {
     Title: string,
-    Topics: Array<String>,
+    Topics: Array<string>,
     Poster: poster,
     Description: string,
     createdAT: Date,
@@ -20,18 +19,14 @@ export type blog = {
     Bookmarked: boolean,
     BlogImageUrl: string
 }
-
-interface RecentPostsProps {
-    
-}
  
-const RecentPosts: FunctionComponent<RecentPostsProps> = () => {
+const RecentPosts = () => {
     const docs = useDocs();
 
     return ( 
         <Box className="mt-4 px-6">
             <h2
-            className="font-bold text-4xl md:text-4xl"
+            className="font-bold text-4xl md:text-4xl mb-4 md:mb-0"
             >Recent blog posts</h2>
             <Flex
             className="grid md:flex flex-wrap"
@@ -39,7 +34,7 @@ const RecentPosts: FunctionComponent<RecentPostsProps> = () => {
             >
                 {
                     docs ?
-                    docs.map((doc: docStructure) => {
+                    docs.map((doc: any) => {
                         return(
                             <BlogPreview
                             key={Math.random()}
