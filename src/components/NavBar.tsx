@@ -23,8 +23,7 @@ const NavBar: FunctionComponent<NavBarProps> = () => {
 
     return ( 
         <Grid 
-        h={{ base: "auto", md: "100vh" }}
-        backgroundColor="blue.200"
+        h={{ base: "auto", md: "100vh" }} 
         w={{ base: `full`, lg: "6vw" }}
         justifyContent="center"
         alignItems="center"
