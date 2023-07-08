@@ -9,15 +9,19 @@ import Auth from './components/Auth.tsx'
 import BlogPosts from './Pages/BlogPosts.tsx'
 import Blog from './Pages/Blog.tsx'
 import { BlogContextProvider } from './context/BlogContext.tsx'
+import NewBlog from './Pages/NewBlog.tsx'
+import Account from './Pages/Account.tsx'
 
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" errorElement={<NotFound />} element={<Root />}>
+        <Route path="account" element={<Account />} />
         <Route path="home" element={<Home />} />
         <Route path="login" element={<Auth/>} />
         <Route path="blog/:id" element={<Blog/>} />
         <Route path="blogs/">
           <Route path="all" element={<BlogPosts />} />
+          <Route path="new" element={<NewBlog />} />
         </Route>
       </Route>
     )

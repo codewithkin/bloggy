@@ -88,7 +88,7 @@ const BlogPosts = () => {
             </Flex>
 
             <section
-            className="grid lg:flex gap-x-6 px-6"
+            className="pt-10 grid gap-y-6 px-6"
             >
                 {
                     filDocs ?

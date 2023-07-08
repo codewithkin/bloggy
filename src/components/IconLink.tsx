@@ -6,7 +6,7 @@ import { Link as RLink } from "react-router-dom";
 interface IconLinkProps {
     icon: IconType,
     linkText: string,
-    color: string | undefined,
+    color: string | undefined, 
     dest: string,
     setDisplay: Dispatch<SetStateAction<boolean>>
 }
@@ -22,7 +22,7 @@ const IconLink: FunctionComponent<IconLinkProps> = ({icon,color,linkText,dest, s
             <Link as={RLink} to={dest}>
                 <Flex 
                 gap="5px">
-                    <Icon as={icon} color={color} boxSize={8}/>
+                    <Icon as={icon} color={color || "white"} boxSize={8}/>
                     <Text
                     mt={{ base: "6px" }}
                     >{ window.innerWidth < 400 && linkText }</Text>

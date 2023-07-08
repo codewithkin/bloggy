@@ -23,6 +23,7 @@ const NavBar: FunctionComponent<NavBarProps> = () => {
 
     return ( 
         <Grid 
+        background="black"
         h={{ base: "auto", md: "100vh" }} 
         w={{ base: `full`, lg: "6vw" }}
         justifyContent="center"
@@ -71,7 +72,7 @@ const NavBar: FunctionComponent<NavBarProps> = () => {
                 <IconLink setDisplay={setDisplay} dest="/blogs/all" color="" icon={BiBookReader} linkText="Articles" />
                 <IconLink setDisplay={setDisplay} dest="/blogs/favorites" color="" icon={BsFillBookmarkStarFill} linkText="Favorites" />
                 <IconLink setDisplay={setDisplay} dest="/account" color="" icon={AiOutlineUser} linkText="Account" />
-                <IconLink setDisplay={setDisplay} dest="/blog/new" color="" icon={FaPlus} linkText="New blog" />
+                <IconLink setDisplay={setDisplay} dest="/blogs/new" color="" icon={FaPlus} linkText="New blog" />
                 <Divider />
                 <Box
                 className="text-center"
